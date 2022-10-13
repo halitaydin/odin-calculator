@@ -7,6 +7,10 @@ h1 {
   margin-right: 30px;
 }
 
+input:focus{
+  outline: none;
+}
+
 #numpad {
   display: flex;
   flex-wrap: wrap;

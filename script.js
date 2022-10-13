@@ -4,19 +4,23 @@ const multiply = (firstNum, secondNum) => firstNum * secondNum;
 const divide = (firstNum, secondNum) => firstNum / secondNum;
 
 function operate(operator, firstNum, secondNum) {
-  return operator(firstNum, secondNum);
+  return Number(operator(firstNum, secondNum).toFixed(3));
 }
 
-let firstNum = [];
-let secondNum = "";
 const display = document.getElementById("display");
+const backSpace = document.getElementById("backSpace");
+const decimalBtn = document.getElementById("decimalBtn");
+const mainDiv = document.getElementById("mainDiv");
 
-const backSpace = document.getElementsByClassName("key");
-backSpace[1].addEventListener("click", () => {
+mainDiv.addEventListener("click", () => {
+  if (!display.value.includes(".")) decimalBtn.disabled = false;
+});
+
+backSpace.addEventListener("click", () => {
   let val = display.value.split("");
   if (val.length > 0) {
     val.pop().toString();
-    return (display.value = val.join(""));
+    display.value = val.join("");
   }
 });
 
@@ -29,46 +33,38 @@ for (const button of buttons) {
       clearDisplay = false;
     }
     display.value += e.target.textContent;
+    if (display.value.includes(".")) decimalBtn.disabled = true;
   });
 }
 
 const clear = document.querySelector(".key");
 clear.addEventListener("click", () => {
   display.value = "";
-  test = [];
+  numbers = [];
+  operatorArray = [];
 });
 
 const operators = document.querySelectorAll(".operator");
+let numbers = [];
+let operatorArray = [];
 
-let test = [];
-let type = [];
-let result = 0;
 for (operation of operators) {
   operation.addEventListener("click", (e) => {
-    if (test.length < 2) {
-      test.push(Number(display.value));
-    }
-    type.push(e.target.textContent);
+    numbers.push(Number(display.value));
+    operatorArray.push(e.target.textContent);
 
-    if (test.length === 2) {
-      test[1] = Number(display.value);
-      if (type[type.length - 2] === "+") {
-        test[0] = operate(add, test[0], test[1]);
-      }
-
-      if (type[type.length - 2] === "-") {
-        test[0] = operate(subtract, test[0], test[1]);
-      }
-
-      if (type[type.length - 2] === "x") {
-        test[0] = operate(multiply, test[0], test[1]);
-      }
-
-      if (type[type.length - 2] === "/") {
-        test[0] = operate(divide, test[0], test[1]);
-      }
-      display.value = test[0];
-      console.log(test);
+    if (numbers.length === 2) {
+      if (operatorArray[0] === "+")
+        numbers[0] = operate(add, numbers[0], numbers[1]);
+      if (operatorArray[0] === "-")
+        numbers[0] = operate(subtract, numbers[0], numbers[1]);
+      if (operatorArray[0] === "x")
+        numbers[0] = operate(multiply, numbers[0], numbers[1]);
+      if (operatorArray[0] === "/")
+        numbers[0] = operate(divide, numbers[0], numbers[1]);
+      numbers.pop();
+      operatorArray.shift();
+      display.value = numbers[0];
     }
     clearDisplay = true;
   });
