@@ -49,10 +49,9 @@ input:focus {
   height: 70px;
   border-radius: 5px;
   border: 1px solid black;
-  width: 304px;
+  width: 312px;
   font-size: 40px;
   background-color: #f5f5f5;
-  padding-right: 10px;
 }
 
 .key:nth-child(2) {
