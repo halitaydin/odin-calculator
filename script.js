@@ -16,6 +16,10 @@ const allClear = document.getElementById("allClear");
 mainDiv.addEventListener("click", () => {
   if (!display.value.includes(".")) decimalBtn.disabled = false;
   display.value ? (allClear.textContent = "C") : (allClear.textContent = "AC");
+  display.value.length > 13
+    ? (display.style.fontSize = "25px")
+    : (display.style.fontSize = "40px");
+  if (display.value.includes(".") && display.value.length === 1) display.value = "0.";
 });
 
 backSpace.addEventListener("click", () => {
@@ -33,6 +37,11 @@ for (const button of buttons) {
     if (clearDisplay) {
       display.value = "";
       clearDisplay = false;
+    }
+    if (display.value.length >= 21) {
+      display.value = "error: too many digit";
+      e.preventDefault();
+      return false;
     }
     display.value += e.target.textContent;
     if (display.value.includes(".")) decimalBtn.disabled = true;
@@ -76,6 +85,7 @@ for (operation of operators) {
 window.addEventListener("keydown", (e) => {
   if (e.code === "Period" || e.code === "NumpadDecimal")
     decimalBtn.disabled = true;
+
   if (clearDisplay) {
     display.value = "";
     clearDisplay = false;
@@ -96,6 +106,12 @@ window.addEventListener("keydown", (e) => {
     operatorArray = [];
   }
 
+  if (display.value.length >= 21) {
+    display.value = "error: too many digit";
+    e.preventDefault();
+    return false;
+  }
+
   let key = Number(e.key);
   if (e.key === ".") {
     if (
@@ -107,9 +123,11 @@ window.addEventListener("keydown", (e) => {
     }
     display.value += e.key;
   }
+
   if (!(isNaN(key) || e.key === null || e.key === " ")) {
     display.value += e.key;
   }
+
   if (
     e.key === "+" ||
     e.key === "-" ||
@@ -140,4 +158,6 @@ window.addEventListener("keydown", (e) => {
   display.value.length > 13
     ? (display.style.fontSize = "25px")
     : (display.style.fontSize = "40px");
+  
+  if (display.value.includes(".") && display.value.length === 1) display.value = "0.";
 });

@@ -7,7 +7,7 @@ h1 {
   margin-right: 30px;
 }
 
-input:focus{
+input:focus {
   outline: none;
 }
 
@@ -60,6 +60,19 @@ input:focus{
   background-color: #adb5bd;
 }
 
+.key:nth-child(2):hover,
+.key:nth-child(3):hover {
+  color: #fff;
+  background-color: black;
+  transform: translateY(-2px);
+}
+
+.key:nth-child(2):active,
+.key:nth-child(3):active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
 .key:nth-child(3) {
   width: 152px;
   font-size: 30px;
@@ -77,21 +90,25 @@ input:focus{
 .num:hover {
   background-color: #6c757d;
   color: #fff;
+  transform: translateY(-2px);
 }
 
 .num:active {
   background-color: #495057;
   color: #fff;
+  transform: translateY(0);
 }
 
 .operator:hover {
   background-color: #343a40;
   color: #fff;
+  transform: translateY(-2px);
 }
 
 .operator:active {
   background-color: #212529;
   color: #fff;
+  transform: translateY(0);
 }
 
 .num:nth-child(17) {
