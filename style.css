@@ -56,6 +56,13 @@ input {
   cursor: pointer;
 }
 
+button {
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+  padding: 0;
+}
+
 .key:nth-child(2) {
   background-color: #adb5bd;
 }
